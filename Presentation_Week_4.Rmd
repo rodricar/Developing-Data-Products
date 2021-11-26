@@ -1,0 +1,55 @@
+---
+title: "Shiny APP and Presentation Week 4 - Developing Data Products"
+author: "Rejane Rodrigues de Carvalho Pereira"
+date: "November 26, 2021"
+output:
+  slidy_presentation: default
+---
+
+
+```{r setup, include=FALSE, message=FALSE, warning=FALSE}
+knitr::opts_chunk$set()
+```
+
+## Shiny APP of th Endangered Fauna from Brazil
+- The data are based on the Official List 2020 of the Environment Ministery of the Brazilian Government.
+- The Brazilian government concerns species threatened with extinction, overexploitation, unsustainable, and - with negative consequences that, sooner or later, will be harmful from the point of view economic, social or environmental.
+- This problem requires specific recovery policies for both terrestrial and aquatic fauna and flora.
+- More information can be obtained from: http://dados.mma.gov.br/dataset/especies-ameacadas
+
+
+## Shiny APP of th Endangered Fauna from Brazil
+
+- Shiny application shows the interactive graphics about Brazil' Fauna.
+- I published my app on the website: https://www.shinyapps.io/admin/#/application/5211110 with URL https://natureza.shinyapps.io/Developing_Data_Products/
+- But if you can't access this because I haven't the Shiny' professional profile, I published the files ui.R and server.R on the github' URL: https://github.com/rodricar/Developing-Data-Products
+- The next slides I put the initials steps to download and read the file with its structure.
+
+## Downloading and Reading the File (Code)
+```{r read, message=FALSE, warning=FALSE}
+library(tidyverse)
+
+fileUrl <- "http://dados.mma.gov.br/dataset/41a79b71-445f-4a6a-8c70-d46af991292a/resource/1f13b062-f3f6-4198-a4c5-3581548bebec/download/lista-de-especies-ameacas-2020.csv"
+
+setwd("C:/Users/Rejane/Documents/Cursos_R/Developing_Data_Products/")
+
+download.file(fileUrl, 
+              destfile = "lista-de-especies-ameacas-2020.csv", 
+              method = "auto")
+
+endangered_species <- data.table::fread("lista-de-especies-ameacas-2020.csv",                                           encoding = "UTF-8") %>%
+janitor::clean_names()
+```
+
+## Reading and Structure File
+
+```{r structure, message=FALSE, warning=FALSE}
+
+dplyr::glimpse(endangered_species)
+
+```
+
+## Selecting Data and Plotting Graphics
+
+- Plotting the Fauna' Data as the user-chosen filter Group
+- Plotting the the Fauna' Data  as the user-chosen filter Exclusive or Not of Brazil
